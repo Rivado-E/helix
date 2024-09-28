@@ -1,19 +1,57 @@
-# use-grammars = { only = [ "rust", "html", "css", "javascript", "typescript", "sql", "dockerfile", "python", "tsx", "gleam" ] }
-
-[language-server.rust-analyzer.config.check]
-command = "clippy"
- 
-# [language-server.rust-analyzer.config]
-# check = { command = "clippy", features = "all" }
-# diagnostics = { experimental = { enable = true } }
-# hover = { actions = { enable = true } }
-# typing = { autoClosingAngleBrackets = { enable = true } }
-# cargo = { allFeatures = true }
-# procMacro = { enable = true }
+[language-server]
+clangd = { command = "clangd" }
+nil = { command = "nil" }
+nixd = { command = "nixd" }
+pylsp = { command = "pylsp" }
 
 [[language]]
-name= "python"
-language-servers = ["pylint", "pylsp", "pyink"]
+name = "c"
+scope = "source.c"
+injection-regex = "c"
+file-types = ["c"] # TODO: ["h"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "clangd" ]
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+injection-regex = "cpp"
+file-types = ["cc", "hh", "c++", "cpp", "hpp", "h", "ipp", "tpp", "cxx", "hxx", "ixx", "txx", "ino", "C", "H", "cu", "cuh", "cppm", "h++", "ii", "inl", { glob = ".hpp.in" }, { glob = ".h.in" }]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "clangd" ]
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "nix"
+scope = "source.nix"
+injection-regex = "nix"
+file-types = ["nix"]
+shebangs = []
+comment-token = "#"
+language-servers = [ "nil", "nixd" ]
+indent = { tab-width = 2, unit = "  " }
+
+# [[language]]
+# name="cpp"
+# formatter = { command = "clang-format"}
+#  indent = { tab-width = 4, unit = " " }
+# auto-format = true
+
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "py(thon)?"
+file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "SConstruct" }, { glob = "SConscript" }]
+shebangs = ["python"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
+comment-token = "#"
+language-servers = ["ruff", "jedi", "pylsp"]
+# TODO: pyls needs utf-8 offsets
+indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "ocaml"
@@ -24,7 +62,6 @@ formatter = { command = "ocamlformat", args = [
 ] }
  indent = { tab-width = 2, unit = " " }
  auto-format = true
-
 
 
  [[language]]

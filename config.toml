@@ -1,8 +1,4 @@
-# theme = "kanagawa"
-# theme = "onedark"
-# theme = "rosita"
 theme = "grub"
-
 
 [editor]
 line-number = "relative"
@@ -14,7 +10,6 @@ idle-timeout = 0
 true-color = true
 whitespace.render = "all"
 
-
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
@@ -25,10 +20,10 @@ display-signature-help-docs = true
 display-inlay-hints = true
 
 [editor.statusline]
-right = ["version-control", "diagnostics", "selections", "position", "file-encoding"]
-
+right = ["version-control", "diagnostics", "position", "file-encoding"]
 
 [keys.normal]
+H = "hover"
 C-o = ":config-open"
 C-r = ":config-reload"
 
